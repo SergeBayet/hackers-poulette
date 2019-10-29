@@ -66,21 +66,25 @@ session_start();
 							<div class="input-field col s4">
 								<input value="<?php echo isset($_SESSION['post']['first-name']) ? $_SESSION['post']['first-name'] : ''; ?>" placeholder="John" id="first_name" type="text" name="first-name" class="validate">
 								<label for="first_name">First Name</label>
+								<span class="helper-text red-text">
 								<?php
 									if(isset($_SESSION['error']['first-name'])) {
-										echo '<span class="helper-text red-text">'.$_SESSION['error']['first-name'].'</span>';
+										echo $_SESSION['error']['first-name'];
 									}
 								?>
+								</span>
 								
 							</div>
 							<div class="input-field col s4">
 								<input value="<?php echo isset($_SESSION['post']['last-name']) ? $_SESSION['post']['last-name'] : ''; ?>" placeholder="Smith" id="last_name" type="text" name="last-name" class="validate">
 								<label for="last_name">Last Name</label>
+								<span class="helper-text red-text">
 								<?php
 									if(isset($_SESSION['error']['last-name'])) {
-										echo '<span class="helper-text red-text">'.$_SESSION['error']['last-name'].'</span>';
+										echo $_SESSION['error']['last-name'];
 									}
 								?>
+								</span>
 							</div>
 							<div class="input-field col s4">
 								<select id="gender" name="gender">
@@ -97,22 +101,26 @@ session_start();
 									?>
 								</select>
 								<label for="gender">Gender</label>
+								<span class="helper-text red-text">
 								<?php
 									if(isset($_SESSION['error']['gender'])) {
-										echo '<span class="helper-text red-text">'.$_SESSION['error']['gender'].'</span>';
+									echo $_SESSION['error']['gender'];
 									}
 								?>
+								</span>
 							</div>
 						</div>
 						<div class="row">
 							<div class="input-field col s4">
 								<input value="<?php echo isset($_SESSION['post']['email']) ? $_SESSION['post']['email'] : ''; ?>" placeholder="john.doe@gmail.com" id="email" type="text" name="email" class="validate">
 								<label for="email">Email</label>
+								<span class="helper-text red-text">
 								<?php
 									if(isset($_SESSION['error']['email'])) {
-										echo '<span class="helper-text red-text">'.$_SESSION['error']['email'].'</span>';
+										echo $_SESSION['error']['email'];
 									}
 								?>
+								</span>
 							</div>
 						
 							<div class="input-field col s4">
@@ -131,11 +139,13 @@ session_start();
 									?>	
 								</select>
 								<label for="country">Country</label>
+								<span class="helper-text red-text">
 								<?php
 									if(isset($_SESSION['error']['country'])) {
-										echo '<span class="helper-text red-text">'.$_SESSION['error']['country'].'</span>';
+										echo $_SESSION['error']['country'];
 									}
 								?>
+								</span>
 							</div>
 							<div class="input-field col s4">
 								<select id="subject" name="subject">

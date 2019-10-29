@@ -20,6 +20,7 @@ if(!isset($_POST))
 }
 $_POST = array_map('trim', $_POST);
 $_POST = array_map('strip_tags', $_POST);
+$_POST = array_map('htmlspecialchars', $_POST);
 $_SESSION['post'] = $_POST;
 $validations = array('first-name' => '.+', 'last-name' => '.+', 'gender' => 'm|f|x', 
 										'email' => 'email', 'country' => '[A-Z]{2}', 'subject' => '.+', 'message' => '.*');

@@ -13,6 +13,7 @@ session_start();
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
 		<style>
+		input[type="text"]#website { display: none; }
 		@font-face {
 			font-family: Bellota;
 			src: url("assets/Bellota-Regular.otf") format("opentype");
@@ -26,6 +27,11 @@ session_start();
 		textarea.materialize-textarea{height: 9rem;}
 		body {
 			font-family: Bellota !important;
+		}
+		button, input, optgroup, select, textarea {
+			font-family: Bellota !important;
+			font-weight: bold;
+			font-size: 24px !important;
 		}
 		li {
 			font-weight: 700;
@@ -54,7 +60,8 @@ session_start();
 					<div class="image" style="text-align:center">
 						<img  src="assets/hackers-poulette-logo.png">
 					</div>
-					<form action="sendform.php" method="post" class="col s12">
+					<form id="form" action="sendform.php" method="post" class="col s12">
+						<input id="website" name="website" type="text" value=""  />
 						<div class="row">
 							<div class="input-field col s4">
 								<input value="<?php echo isset($_SESSION['post']['first-name']) ? $_SESSION['post']['first-name'] : ''; ?>" placeholder="John" id="first_name" type="text" name="first-name" class="validate">
@@ -166,9 +173,24 @@ session_start();
       <script type="text/javascript" src="./node_modules/materialize-css/dist/js/materialize.min.js"></script>
 			<script>
 				document.addEventListener('DOMContentLoaded', function() {
-					var elems = document.querySelectorAll('select');
-					var instances = M.FormSelect.init(elems, {classes: ''});
+					let elems = document.querySelectorAll('select');
+					let instances = M.FormSelect.init(elems, {classes: ''});
+
+					let formElement = document.querySelector('#form');
+					formElement.addEventListener('submit', function() {
+						let a = document.querySelector('input#website').value;
+						
+						if(a.length != 0)
+						{
+							event.preventDefault();
+							return false;
+						}
+						
+					});
 				});
+
+
+
 			</script>
 		</body>
   </html>

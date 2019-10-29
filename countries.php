@@ -2,6 +2,7 @@
 $countries =
  
 array(
+	"0" => "Choose your country",
 "AF" => "Afghanistan",
 "AL" => "Albania",
 "DZ" => "Algeria",

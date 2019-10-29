@@ -13,14 +13,39 @@ session_start();
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
 		<style>
-			textarea.materialize-textarea{height: 9rem;}
+		@font-face {
+			font-family: Bellota;
+			src: url("assets/Bellota-Regular.otf") format("opentype");
+		}
+
+		@font-face {
+			font-family: Bellota;
+			font-weight: bold;
+			src: url("assets/Bellota-Bold.otf") format("opentype");
+		}
+		textarea.materialize-textarea{height: 9rem;}
+		body {
+			font-family: Bellota !important;
+		}
+		li {
+			font-weight: 700;
+		}
 		</style>
 		<?php 
 		require_once('countries.php');
+		$subjects = array('Other', 'Javascript', 'HTML', 'CSS', 'Php', 'SQL');
+		$genders = array('0' => 'Select your gender', 'm' => 'Male', 'f' => 'Female', 'x' => 'Other');
 		if(isset($_SESSION['error']))
 		{
-			var_dump($_SESSION['error']);	
+			if(empty($_SESSION['error']))
+			{
+				echo '<p class="green">Message sent</p>';
+			}
+			else{
+				echo '<p class="red">Message hasn\'t been sent. Check these fields!</p>';
+			}
 		}
+		
 		?>
 
     <body>
@@ -32,55 +57,101 @@ session_start();
 					<form action="sendform.php" method="post" class="col s12">
 						<div class="row">
 							<div class="input-field col s4">
-								<input placeholder="John" id="first_name" type="text" name="first-name" class="validate">
+								<input value="<?php echo isset($_SESSION['post']['first-name']) ? $_SESSION['post']['first-name'] : ''; ?>" placeholder="John" id="first_name" type="text" name="first-name" class="validate">
 								<label for="first_name">First Name</label>
+								<?php
+									if(isset($_SESSION['error']['first-name'])) {
+										echo '<span class="helper-text red-text">'.$_SESSION['error']['first-name'].'</span>';
+									}
+								?>
+								
 							</div>
 							<div class="input-field col s4">
-								<input placeholder="Smith" id="last_name" type="text" name="last-name" class="validate">
+								<input value="<?php echo isset($_SESSION['post']['last-name']) ? $_SESSION['post']['last-name'] : ''; ?>" placeholder="Smith" id="last_name" type="text" name="last-name" class="validate">
 								<label for="last_name">Last Name</label>
+								<?php
+									if(isset($_SESSION['error']['last-name'])) {
+										echo '<span class="helper-text red-text">'.$_SESSION['error']['last-name'].'</span>';
+									}
+								?>
 							</div>
 							<div class="input-field col s4">
 								<select id="gender" name="gender">
-									<option value="" selected>Select your gender</option>
-									<option value="m">Male</option>
-									<option value="f">Female</option>
-									<option value="x">Other</option>
+								<?php
+										$selected = "0";
+										if(isset($_SESSION['post']['gender']))
+										{
+											$selected = $_SESSION['post']['gender'];
+										}
+										foreach($genders as $key => $gender)
+										{
+											echo '<option value="'.$key.'"'. ($key == $selected ? 'selected' : '') .'>'.$gender.'</option>';
+										}
+									?>
 								</select>
 								<label for="gender">Gender</label>
+								<?php
+									if(isset($_SESSION['error']['gender'])) {
+										echo '<span class="helper-text red-text">'.$_SESSION['error']['gender'].'</span>';
+									}
+								?>
 							</div>
 						</div>
 						<div class="row">
 							<div class="input-field col s4">
-								<input placeholder="john.doe@gmail.com" id="email" type="text" name="email" class="validate">
+								<input value="<?php echo isset($_SESSION['post']['email']) ? $_SESSION['post']['email'] : ''; ?>" placeholder="john.doe@gmail.com" id="email" type="text" name="email" class="validate">
 								<label for="email">Email</label>
+								<?php
+									if(isset($_SESSION['error']['email'])) {
+										echo '<span class="helper-text red-text">'.$_SESSION['error']['email'].'</span>';
+									}
+								?>
 							</div>
 						
 							<div class="input-field col s4">
 								<select id="country" name="country">
-									<option value="" selected>Select your country</option>		
-									<?php 
-										foreach($countries as $code => $country)
-										{
-											echo '<option value="'.$code.'">'.$country.'</option>';
-										}
-									?>						
+									<?php
+									$selected = "0";
+									if(isset($_SESSION['post']['country']))
+									{
+										$selected = $_SESSION['post']['country'];
+									}
+									foreach($countries as $key => $country)
+									{
+										echo '<option value="'.$key.'"'. ($key == $selected ? 'selected' : '') .'>'.$country.'</option>';
+									}
+										
+									?>	
 								</select>
 								<label for="country">Country</label>
+								<?php
+									if(isset($_SESSION['error']['country'])) {
+										echo '<span class="helper-text red-text">'.$_SESSION['error']['country'].'</span>';
+									}
+								?>
 							</div>
 							<div class="input-field col s4">
 								<select id="subject" name="subject">
-									<option value="1" selected>Others</option>
-									<option value="2">Php</option>
-									<option value="3">Javascript</option>
-									<option value="4">MySQL</option>
+									<?php
+										$selected = "0";
+										if(isset($_SESSION['post']['subject']))
+										{
+											$selected = $_SESSION['post']['subject'];
+										}
+										foreach($subjects as $key => $subject)
+										{
+											echo '<option value="'.$key.'"'. ($key == $selected ? 'selected' : '') .'>'.$subject.'</option>';
+										}
+									?>
+									
 								</select>
 								<label for="subject">Subject</label>
 							</div>
 						</div>
 						<div class="row">
 							<div class="input-field col s12">
-								<textarea class="materialize-textarea" id="message" name="message" rows="10">
-								</textarea>
+								<textarea class="materialize-textarea" id="message" name="message" rows="10"><?php echo isset($_SESSION['post']['message']) ? $_SESSION['post']['message'] : '' ?></textarea>
+								
 								<label for="message">Message</label>
 								
 							</div>

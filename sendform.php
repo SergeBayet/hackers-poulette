@@ -18,9 +18,9 @@ if(!isset($_POST))
 {
 	$errors[] = "Invalid POST call!";
 }
-
+$_SESSION['post'] = $_POST;
 $validations = array('first-name' => '.+', 'last-name' => '.+', 'gender' => 'm|f|x', 
-										'email' => 'email', 'country' => '[A-Z]{2}', 'subject' => '[1234]', 'message' => '.*');
+										'email' => 'email', 'country' => '[A-Z]{2}', 'subject' => '.+', 'message' => '.*');
 
 foreach($validations as $key => $validation)
 {
